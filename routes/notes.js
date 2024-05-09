@@ -21,4 +21,11 @@ router.post('/add', (req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.delete('/:id', (req, res) => {
+    Note.findByIdAndRemove(req.params.id)
+        .then(() => res.json('Note deleted.'))
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
+
 module.exports = router;
