@@ -1,26 +1,23 @@
-const router = require('express').Router();
-let Note = require('../models/note.model');
+const express = require('express');
+const router = express.Router();
+const Note = require('../models/Note'); // Adjust the path as needed to where your Note model is defined
 
-router.route('/').get((req, res) => {
+// Endpoint to retrieve all notes
+router.get('/', (req, res) => {
   Note.find()
-    .then(notes => res.json(notes))
+    .then(notes => res.json(notes)) // Sends all notes as JSON
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/add').post((req, res) => {
-  const title = req.body.title;
-  const content = req.body.content;
-
-  const newNote = new Note({title, content});
+// Endpoint to add a new note
+router.post('/add', (req, res) => {
+  const newNote = new Note({
+    title: req.body.title,
+    content: req.body.content
+  });
 
   newNote.save()
     .then(() => res.json('Note added!'))
-    .catch(err => res.status(400).json('Error: ' + err));
-});
-
-router.route('/:id').delete((req, res) => {
-  Note.findByIdAndDelete(req.params.id)
-    .then(() => res.json('Note deleted.'))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 

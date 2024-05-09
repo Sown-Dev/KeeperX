@@ -6,6 +6,7 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Middleware
 app.use(cors());
 app.use(express.json()); // Allows us to parse JSON
 
@@ -17,7 +18,10 @@ connection.once('open', () => {
   console.log("MongoDB database connection established successfully");
 });
 
-// Define routes
+// Routes
+const notesRouter = require('./routes/notes');
+app.use('/notes', notesRouter);
+
 app.get('/', (req, res) => {
   res.send('Hello from Keeper App Backend!');
 });
