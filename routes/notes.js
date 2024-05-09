@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Note = require('../models/Note'); // Adjust the path as needed to where your Note model is defined
+const Note = require('../models/note');
 
 // Endpoint to retrieve all notes
 router.get('/', (req, res) => {
